@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  postgresql:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: 8Fny?aXEFkh9ePA3
+    networks:
+    - traefik
+
+  pokedex-back:
+    image: registry.simco.fr/simco/pokedex-back:docker
+    environment:
+      - POSTGRES_HOST=postgresql
+      - POSTGRES_PORT=5432
+      - DJANGO__POSTGRES_HOST=postgresql
+      - DJANGO__int__POSTGRES_PORT=5432
+    networks:
+    - traefik
+    deploy:
+      labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik-devio
+      - traefik.http.routers.pokedex-back-devio.entrypoints=websecure
+      - traefik.http.routers.pokedex-back-devio.tls=true
+      - traefik.http.routers.pokedex-back-devio.rule=Host(`pokedexbe.dev.simco.io`)
+      - traefik.http.services.pokedex-back-devio.loadbalancer.server.port=8030
+
+networks:
+  traefik:
+    name: traefik-devio
+    external: true

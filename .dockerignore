@@ -1,0 +1,6 @@
+**/local_settings.py
+.git
+docs/
+Dockerfile
+mkdocs.yml
+README.md
