@@ -28,7 +28,12 @@ SECRET_KEY = "3q@7xs0v_+d5ltnv-0(%$ug!#v1q2(@gqe@leb52k5$#+ya%-%"
 DEBUG = False
 
 STATIC_URL = "/static/"
-STATIC_ROOT = "/var/www/static"
+STATIC_ROOT = "/static/"
+# STATIC_ROOT = "/var/www/static"
+
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static')
+# ]
 
 ALLOWED_HOSTS = ["*"]
 CORS_ALLOW_ALL_ORIGINS = True

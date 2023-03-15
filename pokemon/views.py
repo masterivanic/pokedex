@@ -45,6 +45,11 @@ class PokemonViewSet(ModelViewSet):
 
         return PokemonSerializer
 
+    def get_queryset(self):
+        """ get pokemon's user who is authenticated """
+        return self.queryset.filter(trainer=self.request.user)
+
+   
     @action(methods=["POST"], detail=True, url_path="give_xp")
     @extend_schema(responses=PokemonSerializer)
     def give_xp(self, request, pk=None):
