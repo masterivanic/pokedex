@@ -4,10 +4,9 @@ from .models import Pokemon
 from authentication.serializers import UserSerializer
 from pokedex.serializers import PokedexCreatureDetailSerializer
 
-
 class PokemonSerializer(serializers.ModelSerializer):
     """Serializer of Pokemon object"""
-
+   
     class Meta:
         model = Pokemon
         fields = (
@@ -17,8 +16,10 @@ class PokemonSerializer(serializers.ModelSerializer):
             "nickname",
             "level",
             "experience",
+            "pokemon_object"
         )
         read_only_fields = ("id", "level")
+
 
     def validate(self, attrs):
         """Add pokemon nickname if no nickname is given"""
@@ -50,3 +51,5 @@ class PokemonGiveXPSerializer(serializers.Serializer):
     """Serializer of give-xp endpoint"""
 
     amount = serializers.IntegerField(min_value=0)
+
+

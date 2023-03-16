@@ -6,11 +6,14 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
+
 from .filters import PokemonFilter
 from .models import Pokemon
 from .serializers import PokemonDetailsSerializer
 from .serializers import PokemonGiveXPSerializer
 from .serializers import PokemonSerializer
+from pokemon_object.models import get_random_object
+
 
 
 @extend_schema_view(
@@ -49,6 +52,16 @@ class PokemonViewSet(ModelViewSet):
         """ get pokemon's user who is authenticated """
         return self.queryset.filter(trainer=self.request.user)
 
+    def create(self, request, *args, **kwargs):
+        """ create user while making a request and set random pokemon object """
+        data = request.data
+        data['pokemon_object'] = get_random_object().pk
+        serializer = self.get_serializer(data = data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+        return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
    
     @action(methods=["POST"], detail=True, url_path="give_xp")
     @extend_schema(responses=PokemonSerializer)
@@ -63,3 +76,4 @@ class PokemonViewSet(ModelViewSet):
 
         response_serializer = PokemonSerializer(instance=pokemon)
         return Response(response_serializer.data, status=status.HTTP_200_OK)
+

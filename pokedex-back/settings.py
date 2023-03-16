@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "authentication",
     "pokedex",
     "pokemon",
+    "pokemon_object",
 ]
 
 MIDDLEWARE = [
