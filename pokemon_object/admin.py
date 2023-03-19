@@ -1,15 +1,11 @@
 from django.contrib import admin
-from .models import PokemonPreferredObject
 
-# Register your models here.
+from pokemon_object.models import PokemonPreferredObject
+
+
 class PokemonPreferredObjectAdmin(admin.ModelAdmin):
-    list_display = ('name', 'image')
+    list_display = ("name", "image")
     list_per_page = 50
 
-admin.site.register(PokemonPreferredObject, PokemonPreferredObjectAdmin)
 
-"""
- create a interface admin
- to enable and disable and api
- 
-"""
+admin.site.register(PokemonPreferredObject, PokemonPreferredObjectAdmin)

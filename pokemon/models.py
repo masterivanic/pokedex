@@ -5,6 +5,25 @@ from pokedex.models import PokedexCreature
 from pokemon_object.models import PokemonPreferredObject
 
 
+class PokemonTeam(models.Model):
+    """Pokemon trainer team"""
+
+    name = models.CharField(max_length=100, blank=True, null=False)
+    trainer = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+    )
+
+    class Meta:
+        ordering = ["name"]
+        verbose_name_plural = "Trainer pokemon's team"
+
+    def __str__(self) -> str:
+        return self.name
+
+
 class Pokemon(models.Model):
     """Pokemon object"""
 
@@ -28,11 +47,12 @@ class Pokemon(models.Model):
 
     level = models.PositiveSmallIntegerField(default=1)
     experience = models.PositiveIntegerField(default=0)
+
     pokemon_object = models.OneToOneField(
-        PokemonPreferredObject, 
-        on_delete=models.CASCADE,
-        null=True
+        PokemonPreferredObject, on_delete=models.CASCADE, null=True
     )
+
+    pokemon_team = models.ForeignKey(PokemonTeam, on_delete=models.SET_NULL, null=True)
 
     def clean(self):
         """
@@ -63,4 +83,7 @@ class Pokemon(models.Model):
         self.level = 1 + self.experience // 100
         self.save()
 
- 
+
+class TeamID:
+    def __init__(self, team_id) -> None:
+        self.team_id = team_id

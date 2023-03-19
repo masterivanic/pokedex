@@ -1,12 +1,14 @@
 from rest_framework import serializers
 
-from .models import Pokemon
 from authentication.serializers import UserSerializer
 from pokedex.serializers import PokedexCreatureDetailSerializer
+from pokemon.models import Pokemon
+from pokemon.models import PokemonTeam
+
 
 class PokemonSerializer(serializers.ModelSerializer):
     """Serializer of Pokemon object"""
-   
+
     class Meta:
         model = Pokemon
         fields = (
@@ -16,10 +18,9 @@ class PokemonSerializer(serializers.ModelSerializer):
             "nickname",
             "level",
             "experience",
-            "pokemon_object"
+            "pokemon_object",
         )
         read_only_fields = ("id", "level")
-
 
     def validate(self, attrs):
         """Add pokemon nickname if no nickname is given"""
@@ -53,3 +54,45 @@ class PokemonGiveXPSerializer(serializers.Serializer):
     amount = serializers.IntegerField(min_value=0)
 
 
+class PokemonTeamSerializer(serializers.ModelSerializer):
+    """Serializer of Pokemon team"""
+
+    class Meta:
+        model = PokemonTeam
+        fields = ("id", "name", "trainer")
+        read_only_fields = ("id",)
+
+
+class PokemonTeamIDSerializer(serializers.Serializer):
+    team_id = serializers.IntegerField(min_value=0)
+
+
+class PokemonTeamsInfoSerializer(serializers.ModelSerializer):
+    """Serializer of Pokemon team"""
+
+    pokemon = PokemonSerializer()
+
+    class Meta:
+        model = PokemonTeam
+        fields = (
+            "name",
+            "pokemon",
+        )
+
+
+class PokemonTeamUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PokemonTeam
+        fields = (
+            "id",
+            "name",
+        )
+
+
+class PokemonTeamMessageSerializer(serializers.Serializer):
+    message = serializers.CharField()
+
+
+class PokemonTeamAssignSerializer(serializers.Serializer):
+    pokemon_id = serializers.IntegerField(min_value=0)
+    pokemon_team = serializers.CharField()
