@@ -30,3 +30,8 @@ Pour dev sur ce repository dans les règles de l'art, il faut `poetry run pre-co
 - Le prefix du token d'accès est `Bearer`
 - La durée de validité d'un token d'accès est de 5mn
 - La durée de validité d'un token de refresh est de 1 jour
+
+## PROJECT ANALYZE
+* Here current analyse UML of pokedex app 👌
+
+![alt text](/static/PokemonUML.PNG)
