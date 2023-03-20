@@ -1,7 +1,4 @@
 from django.shortcuts import get_object_or_404
-from django.utils.decorators import method_decorator
-from django.views.decorators.cache import cache_page
-from django.views.decorators.vary import vary_on_headers
 from drf_spectacular.utils import extend_schema
 from drf_spectacular.utils import extend_schema_view
 from rest_framework import status
@@ -60,12 +57,6 @@ class PokemonViewSet(ModelViewSet):
 
         return PokemonSerializer
 
-    @method_decorator(cache_page(60 * 60))
-    @method_decorator(
-        vary_on_headers(
-            "Authorization",
-        )
-    )
     def get_queryset(self):
         """get pokemon's user who is authenticated"""
         return self.queryset.filter(trainer=self.request.user)

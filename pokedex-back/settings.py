@@ -92,10 +92,21 @@ WSGI_APPLICATION = "pokedex-back.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+#     }
+# }
+
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        "ENGINE": "django.db.backends.postgresql",
+        "HOST": "localhost",
+        "NAME": "simcodb",
+        "USER": "simco_admin",
+        "PASSWORD": "admin123",
+        "PORT": 5432,
     }
 }
 
