@@ -131,3 +131,11 @@ dmypy.json
 .~lock.pokemon.csv#
 
 .vscode/
+
+#django rest static file
+static/admin
+static/django_extensions
+static/rest_framework
+
+# excluding our data file
+*.csv

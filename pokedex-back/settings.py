@@ -27,8 +27,7 @@ SECRET_KEY = "3q@7xs0v_+d5ltnv-0(%$ug!#v1q2(@gqe@leb52k5$#+ya%-%"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-STATIC_URL = "/static/"
-STATIC_ROOT = "/static/"
+
 # STATIC_ROOT = "/var/www/static"
 
 # STATICFILES_DIRS = [
@@ -137,6 +136,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, "static"),
+# ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -160,6 +163,29 @@ SPECTACULAR_SETTINGS = {
     "DESCRIPTION": "A pokemon management app",
     "VERSION": "1.0.0",
 }
+
+# Swagger settings
+SWAGGER_SETTINGS = {
+    "SHOW_REQUEST_HEADERS": True,
+    "SECURITY_DEFINITIONS": {
+        "Bearer": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header",
+        },
+        "basic": {"type": "basic"},
+    },
+    "USE_SESSION_AUTH": True,
+    "JSON_EDITOR": True,
+    "OPERATIONS_SORTER": "method",
+    "DOC_EXPANSION": "full",
+    "SUPPORTED_SUBMIT_METHODS": ["get", "post", "put", "delete", "patch"],
+}
+
+# login et logout conf for api
+LOGIN_URL = "rest_framework:login"
+LOGOUT_URL = "rest_framework:logout"
+
 
 django_env_overrides.apply_to(globals())
 

@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.contrib import admin
+from django.contrib.auth.decorators import permission_required
 from django.shortcuts import redirect
 from django.urls import include
 from django.urls import path
@@ -23,7 +24,7 @@ urlpatterns = [
     ),
     path("", lambda r: redirect("api/swagger/")),
     path("pokedex/", include("pokedex.urls")),
-    path("pokemon-object/", include('pokemon_object.urls')),
+    path("pokemon-object/", include("pokemon_object.urls")),
 ]
 
 if "pokemon" in settings.INSTALLED_APPS:
